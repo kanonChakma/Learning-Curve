@@ -3,5 +3,36 @@
  home
 {% endblock title %}
 {% block content %}
-   <h1>Hello This is home page brother</h1>
+<style>
+   .home-container {
+       display: grid;
+       grid-template-columns: 1fr 3fr 1fr;
+   }
+</style>
+  <div class="home-container">
+      <div>
+         {% include 'base/topics_component.html' %}
+      </div>
+       <div>
+         <h3>Rooms Available are {{rooms_count}}</h3>
+         <h3><a href={% url 'create-room' %}>Create A Room</a></h3>
+         {% for room in rooms  %}
+            <div>
+                 <h2>Room Name is {{room.name}}</h2>
+                 <a href={% url 'room' room.id%}>
+                    <span>Room User Name is:@{{room.host.username}}</span>
+                 </a>
+                 <br/>
+                 <a href={% url 'update-room' room.id %}>
+                    Update Room
+                 </a>
+                 <br/>
+                 <a href={% url 'delete-room' room.id %}>
+                    Delete Room
+                 </a>
+                 <hr/>       
+            <div>
+         {% endfor %} 
+       </div>
+  </div>
 {% endblock content %}

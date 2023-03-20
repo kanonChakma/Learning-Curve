@@ -1,0 +1,13 @@
+{% extends 'main.html' %}
+{% block title %}
+  room
+{% endblock title %}
+
+{% block content %}
+  <div>
+    <h1>{{room.topic}}</h1>
+    <h2>{{room.name}}</h2>
+    <span>{{room.host.username}}</span>
+    <span>{{room.description}}</span>
+    </div>
+{% endblock content %}
