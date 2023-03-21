@@ -72,20 +72,21 @@ def logutUser(request):
 
 
 def home(request):
-    q = request.GET.get("q")
+    q = request.GET.get("q") if request.GET.get("q") != None else ""
 
-    if q is not None:
-        rooms = Room.objects.filter(
-            Q(topic__name__icontains=q)
-            | Q(name__icontains=q)
-            | Q(description__icontains=q)
-        )
-    else:
-        rooms = Room.objects.all()
+    rooms = Room.objects.filter(
+        Q(topic__name__icontains=q) | Q(name__icontains=q) | Q(description__icontains=q)
+    )
 
+    activity = Message.objects.filter(Q(room__topic__name__icontains=q))
     rooms_count = rooms.count()
     topics = Topic.objects.all()
-    context = {"rooms": rooms, "topics": topics, "rooms_count": rooms_count}
+    context = {
+        "rooms": rooms,
+        "topics": topics,
+        "rooms_count": rooms_count,
+        "activites": activity,
+    }
     return render(request, "base/home.html", context)
 
 
