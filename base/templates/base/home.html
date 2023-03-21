@@ -23,13 +23,15 @@
                     <span>Room User Name is:@{{room.host.username}}</span>
                  </a>
                  <br/>
-                 <a href={% url 'update-room' room.id %}>
-                    Update Room
-                 </a>
-                 <br/>
-                 <a href={% url 'delete-room' room.id %}>
-                    Delete Room
-                 </a>
+                  {% if  request.user == room.host%}
+                     <a href={% url 'update-room' room.id %}>
+                        Update Room
+                     </a>
+                     <br/>
+                     <a href={% url 'delete-room' room.id %}>
+                        Delete Room
+                     </a>
+                  {% endif %}
                  <hr/>       
             <div>
          {% endfor %} 

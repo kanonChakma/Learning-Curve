@@ -5,4 +5,12 @@
    <form method="GET" action="{% url 'home' %}">
       <input name="q"  type="text" placeholder="Enter Your text"/> 
    </form>
+
+  <div>
+      {% if request.user.is_authenticated %}
+        <a href={% url 'logout' %}>Log out</a>   
+      {% else %}
+         <a href={% url 'login' %}>Log In</a>
+      {% endif %}   
+  </div>
 </nav>
