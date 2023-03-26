@@ -7,7 +7,7 @@ from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 
-from .forms import RoomForm
+from .forms import RoomForm, UserForm
 from .models import Message, Room, Topic
 
 
@@ -60,7 +60,7 @@ def loginPage(request):
         else:
             messages.error(request, "username or password does not exist!!")
     context = {"page": page}
-    return render(request, "base/login_register.html", context)
+    return render(request, "base/login.html", context)
 
 
 def regitsterPage(request):
@@ -75,9 +75,7 @@ def regitsterPage(request):
             return redirect("home")
         else:
             messages.error(request, "Error Occured During Registration!!")
-    return render(
-        request, "base/login_register.html", {"page": "register", "form": form}
-    )
+    return render(request, "base/register.html", {"page": "register", "form": form})
 
 
 def logutUser(request):
@@ -165,12 +163,21 @@ def updateRoom(request, pk):
         return HttpResponse("Your are not allowed here!!")
 
     if request.method == "POST":
-        form = RoomForm(
-            request.POST, instance=room
-        )  # identify which room value will update/replace
-        if form.is_valid():
-            form.save()
-            return redirect("home")
+        topic_name = request.POST.get("topic")
+        topic, created = Topic.objects.get_or_create(name=topic_name)
+
+        room.name = request.POST.get("name")
+        room.description = request.POST.get("description")
+        room.topic = topic
+        room.save()
+        return redirect("home")
+
+        # form = RoomForm(
+        #     request.POST, instance=room
+        # )  # identify which room value will update/replace
+        # if form.is_valid():
+        #     form.save()
+        #     return redirect("home")
     context = {"form": form, "topics": topics, "room": room}
     return render(request, "base/room_form.html", context)
 
@@ -190,7 +197,14 @@ def deleteRoom(request, pk):
 
 @login_required(login_url="login")
 def updateUser(request):
-    pass
+    user = request.user
+    form = UserForm(instance=user)
+    if request.method == "POST":
+        form = UserForm(request.POST, instance=user)
+        form.save()
+        return redirect("user-profile", pk=user.id)
+    return render(request, "base/update-user.html", {"form": form})
+
     # user = request.user
     # form = UserForm(instance=user)
 
@@ -199,8 +213,6 @@ def updateUser(request):
     #     if form.is_valid():
     #         form.save()
     #         return redirect('user-profile', pk=user.id)
-
-    # return render(request, 'base/update-user.html', {'form': form})
 
 
 def topicsPage(request):

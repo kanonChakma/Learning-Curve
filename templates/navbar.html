@@ -1,9 +1,10 @@
 {% load static %}
+<nav class="header-nav">
 <header class="header header--loggedIn">
     <div class="container">
         <a href="{% url 'home' %}" class="header__logo">
             <img src="{% static 'images/logo.svg' %}" />
-            <h1>StudyBuddy</h1>
+            {% comment %} <h1>StudyBuddy</h1> {% endcomment %}
         </a>
         <form class="header__search" method="GET" action="{% url 'home' %}">
             <label>
@@ -37,10 +38,18 @@
             {% else %}
 
             <!-- Not Logged In -->
-            <a href="{% url 'login' %}">
-                <img src="{% static 'images/avatar.svg' %}" />
-                <p>Login</p>
-            </a>
+             <div class="nav-button">
+                <button class="log">
+                    <a href="{% url 'login' %}">
+                      Login
+                    </a>
+                </button>
+                <button class="reg">
+                    <a href="{% url 'register' %}">
+                    Sign up
+                    </a>
+                </button>
+             </div>
             {% endif %}
 
             <div class="dropdown-menu">
@@ -67,7 +76,7 @@
         </nav>
     </div>
 </header>
-
+</nav>
 {% comment %} <nav>
     <h1>
         <a href={% url 'home' %}>LOGO</a>

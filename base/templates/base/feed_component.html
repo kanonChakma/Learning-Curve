@@ -7,12 +7,13 @@
             </div>
             <span>@{{room.host.username}}</span>
         </a>
-        <div class="roomListRoom__actions">
-            <span>{{room.created|timesince}} ago</span>
-        </div>
+        <a href="{% url 'home' %}?q={{room.topic.name}}">
+            <p class="roomListRoom__topic">{{room.topic.name}}</p>
+        </a>
     </div>
     <div class="roomListRoom__content">
         <a href="{% url 'room' room.id %}">{{room.name}}</a>
+        <p>{{room.description|slice:":100"}}....</p>
     </div>
     <div class="roomListRoom__meta">
         <a href="{% url 'room' room.id %}" class="roomListRoom__joined">
@@ -33,7 +34,9 @@
             </svg>
             {{room.participants.all.count}} Joined
         </a>
-        <p class="roomListRoom__topic">{{room.topic.name}}</p>
+        <div class="roomListRoom__actions">
+            <span>{{room.created|timesince}} ago</span>
+        </div>
     </div>
 </div>
 {% endfor %}
