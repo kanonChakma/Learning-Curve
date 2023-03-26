@@ -765,7 +765,8 @@ a {
 .room__topLeft svg {
   width: 1.6rem;
   height: 1.6rem;
-  fill: var(--color-light);
+  fill: #71c6dd;
+  filter: #71c6dd;
 }
 
 .room__topRight {

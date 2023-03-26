@@ -1,10 +1,11 @@
 from django.contrib import admin
 
-from .models import Message, Room, Topic
+from .models import Message, NewUser, Room, Topic
 
 admin.site.register(Room)
 admin.site.register(Message)
 admin.site.register(Topic)
+admin.site.register(NewUser)
 
 
 # class RoomAdmin(admin.ModelAdmin):
