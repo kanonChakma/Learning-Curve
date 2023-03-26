@@ -78,6 +78,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTH_USER_MODEL = "base.NewUser"
+
 LANGUAGE_CODE = "en-us"
 
 TIME_ZONE = "UTC"
@@ -86,10 +88,15 @@ USE_I18N = True
 
 USE_TZ = True
 
-STATICFILES_DIRS = [
-    BASE_DIR/ 'static'
-]
 
-STATIC_URL = "static/"
+STATIC_URL = "/static/"
+
+MEDIA_URL = "/images/"
+
+
+STATICFILES_DIRS = [BASE_DIR / "static"]
+
+MEDIA_ROOT = BASE_DIR / "static/images"
+
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
