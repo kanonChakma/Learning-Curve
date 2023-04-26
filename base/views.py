@@ -46,6 +46,17 @@ def loginPage(request):
     if request.method == "POST":
         email = request.POST.get("email").lower()
         password = request.POST.get("password")
+
+        errors = {}
+        if not email:
+            errors["email"] = "Please enter your email"
+        if not email:
+            errors["password"] = "Please enter your password"
+
+        if errors:
+            messages.error(request, "")
+            return render(request, "base/login.html", {"errors": errors})
+
         try:
             user = NewUser.objects.get(email=email)
         except:
@@ -56,7 +67,7 @@ def loginPage(request):
             login(request, user)
             return redirect("home")
         else:
-            messages.error(request, "username or password does not exist!!")
+            messages.error(request, "email or password does not exist!!")
     context = {"page": page}
     return render(request, "base/login.html", context)
 
@@ -72,7 +83,11 @@ def regitsterPage(request):
             login(request, user)
             return redirect("home")
         else:
-            messages.error(request, "Error Occured During Registration!!")
+            print(form.errors)
+
+    else:
+        form = MyUserCreationForm()
+
     return render(request, "base/register.html", {"page": "register", "form": form})
 
 
