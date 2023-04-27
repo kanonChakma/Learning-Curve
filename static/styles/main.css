@@ -267,20 +267,12 @@ a {
 /*==============================
 =>  Topics
 ================================*/
-.msg-main {
-  color: red;
-  list-style: none;
-  font-size: 30px;
-}
-.msg-main ul {
-  color: red;
-  list-style: none;
-  font-size: 30px;
-}
+
 .msg-main ul li {
-  color: red;
-  list-style: none;
-  font-size: 30px;
+  color: #ff0000;
+}
+.error-msg {
+  color: #ff0000;
 }
 .form__group {
   margin-bottom: 2rem;
@@ -1010,7 +1002,6 @@ a {
 .message {
   color: red;
   list-style: none;
-  font-size: 30px;
 }
 /*==============================
 =>  Header Section

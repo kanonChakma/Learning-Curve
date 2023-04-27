@@ -60,14 +60,18 @@ def loginPage(request):
         try:
             user = NewUser.objects.get(email=email)
         except:
-            messages.error(request, "user does not exist!!")
+            errors["user"] = "User Does Not Exist"
+            messages.error(request, "")
+            return render(request, "base/login.html", {"errors": errors})
 
         user = authenticate(request, email=email, password=password)
+        print(user)
         if user is not None:
             login(request, user)
             return redirect("home")
         else:
             messages.error(request, "email or password does not exist!!")
+
     context = {"page": page}
     return render(request, "base/login.html", context)
 
