@@ -216,7 +216,7 @@ def updateUser(request):
         form = UserForm(request.POST, request.FILES, instance=user)
         form.save()
         return redirect("user-profile", pk=user.id)
-    return render(request, "base/update-user.html", {"form": form})
+    return render(request, "base/update-user.html", {"form": form, "user_id": user.id})
 
     # user = request.user
     # form = UserForm(instance=user)
